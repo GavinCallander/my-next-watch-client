@@ -1,0 +1,13 @@
+.layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+    background-color: $black;
+    color: $yellow;
+    &_icon {
+        font-size: 2rem;
+    }
+}

@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Roboto&display=swap');
+
+.heading {
+    font-family: 'Bangers', cursive;
+    &_one {
+        font-size: 3rem;
+    }
+    &_two {
+        font-size: 2rem;
+    }
+    &_three {
+        font-size: 1.5rem;
+    }
+};
+.content {
+    font-family: 'Roboto', sans-serif;
+    &_one {
+        font-size: 1.4rem;
+    }
+    &_two {
+        font-size: 1.1rem;
+    }
+}
