@@ -41,8 +41,8 @@ export const Search = props => {
     };
 
     let results = responseMovies.map(movie => {
-        let date = movie.release_date.substring(0, 4);
-        return <SearchResult date={date} key={movie.id} poster={movie.poster_path} title={movie.title} votes={movie.vote_average} />
+        let release_year = movie.release_date.substring(0, 4);
+        return <SearchResult key={movie.id} poster={movie.poster_path} release_year={release_year} title={movie.title} tmdb_rating={movie.vote_average} />
     })
 
     return (
@@ -67,8 +67,8 @@ const SearchResult = props => {
             <img className='search_result_img' src={`http://image.tmdb.org/t/p/w500${props.poster}`} />
             <div className='search_result_detail'>
                 <p className='content content_two'>{props.title}</p>
-                <p className='content content_three'>{props.date}</p>
-                <p className='content content_three'>{props.votes} <FontAwesomeIcon icon={faStar} size='1x' /></p>
+                <p className='content content_three'>{props.release_year}</p>
+                <p className='content content_three'>{props.tmdb_rating} <FontAwesomeIcon icon={faStar} size='1x' /></p>
             </div>
         </div>
     )

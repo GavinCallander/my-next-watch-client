@@ -1,0 +1,44 @@
+.auth {
+    display: none;
+    &_active {
+        position: absolute;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 70%;
+        background-color: $white;
+        box-shadow: 0 0 10px 1px $yellow;
+    }
+    &_form {
+        width: 90%;
+        height: 100%;
+    }
+    &_header {
+        width: 90%;
+        text-align: right;
+    }
+    &_input {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        width: 70%;
+        &_field {
+            border: none;
+            box-shadow: 0 0 2px 0.5px $black;
+        }
+    }
+    &_submit {
+        margin: 1rem auto;
+        padding: 0.5rem;
+        height: 10%;
+        background-color: $yellow;
+        border: none;
+        border-radius: 5px;
+    }
+}
+
+// * {
+//     border: 1px solid red;
+// }
