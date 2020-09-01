@@ -1,23 +1,30 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 export const Profile = props => {
 
+    let content;
     if (!props.user) {
         return <Redirect to='/' />
     }
-
-    const movies = ['The Godfather', 'Saving Private Ryan', 'Gladiator', 'The Shawshank Redemption', 'The Dark Knight'];
+    else {
+        content = props.user.lists.map(list => {
+            return <ProfileSection key={list._id} title={list.name} />
+        })
+    }
 
     return (
         <div className='page profile'>
-            <ProfileSection 
-                content={movies}
+            <ProfileSection
                 title='My Movies'
             />
             <ProfileSection 
                 title='My TV'
             />
+            {content}
         </div>
     )
 };
@@ -38,18 +45,28 @@ const ProfileSection = props => {
             </span>
             <div className='profile_section_main'>
                 {content}
+                <ProfileItem isAdd={true} />
             </div>
         </div>
     )
 };
 
 const ProfileItem = props => {
+
+    let className;
+    let content;
+    if (props.isAdd) {
+        className = 'profile profile_item profile_item_add'
+        content = <Link alt='Link to search page' className='profile_item_icon' to='/search'><FontAwesomeIcon icon={faPlus} size='3x'/></Link>
+    }
+    else {
+        className = 'profile profile_item'
+        content = '';
+    }
+
     return (
-        <span className='profile profile_item'>
-            <span className='profile_item_poster'>
-                
-            </span>
-            <p className='content content_two'>{props.title}</p>
+        <span className={className}>
+            {content}
         </span>
     )
 }

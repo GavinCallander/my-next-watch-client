@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     &_bar {
-        padding: 1rem;
+        padding: 0.5rem;
         flex-direction: row;
         justify-content: space-around;
         flex-wrap: wrap;
@@ -17,7 +17,7 @@
             justify-content: center;
             align-items: center;
             width: 90%;
-            height: 40%;
+            height: 35%;
             &_option {
                 width: 50%;
                 height: 100%;
@@ -38,19 +38,36 @@
         }
     }
     &_result {
-        margin: 1rem;
+        margin: 0.1rem;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         width: 95%;
         height: 30%;
+        &_front {
+            
+        }
         &_detail {
-            padding: 0.1rem 0.5rem;
+            padding: 0.1rem 1rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
             width: 68%;
             height: 100%;
             background-color: $yellow;
             box-sizing: border-box;
+            &_content {
+                width: 80%;
+                text-align: left;
+            }
+            &_icon {
+                padding: 0.6rem;
+                background-color: $black;
+                color: $yellow;
+                border-radius: 5px;
+            }
         }
         &_img {
             width: 30%;
@@ -64,7 +81,7 @@
         justify-content: flex-start;
         align-items: center;
         width: 100%;
-        min-height: 75%;
+        height: 75%;
         overflow-y: scroll;
     }
 }

@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faSearch, faStar } from '@fortawesome/free-solid-svg-icons';
 
 export const Search = props => {
 
-    const [activeFilter, setActiveFilter] = useState('Movie');
-    const [searchText, setSearchText] = useState('');
+    const [activeFilter, setActiveFilter] = useState('Movies');
     const [responseShows, setResponseShows] = useState([]);
+    const [searchText, setSearchText] = useState('');
 
     const handleFilterChange = e => {
         setResponseShows([]);
         setActiveFilter(e.currentTarget.getAttribute('name'));
     };
 
-    let filters = ['Movie','TV'];
+    let filters = ['Movies','TV'];
 
     let filterContent = filters.map(filter => {
         let filterClassName = 'search_bar_filter search_bar_filter_option'
@@ -27,7 +27,7 @@ export const Search = props => {
     });
 
     const handleSearch = () => {
-        let filter = activeFilter === 'Movie' ? 'movie' : 'tv';
+        let filter = activeFilter === 'Movies' ? 'movie' : 'tv';
         fetch(`${process.env.REACT_APP_MOVIE_API}/${filter}?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&query=${searchText}`)
         .then(res => {
             if (res.ok) {
@@ -46,10 +46,11 @@ export const Search = props => {
         });
     };
 
+    let className;
     let release_year;
     let title;
     let results = responseShows.map(show => {
-        if (activeFilter === 'Movie') {
+        if (activeFilter === 'Movies') {
             release_year = show.release_date.substring(0, 4);
             title = show.title;
         }
@@ -58,7 +59,7 @@ export const Search = props => {
             title = show.name;
         }
         return <SearchResult key={show.id} poster={show.poster_path} release_year={release_year} title={title} tmdb_rating={show.vote_average} />
-    })
+    });
 
     return (
         <div className='page search'>
@@ -77,13 +78,32 @@ export const Search = props => {
 };
 
 const SearchResult = props => {
+
+    const [panelActive, setPanelActive] = useState(false);
+
+    const handleDisplayChange = () => {
+        
+    };
+
     return (
         <div className='search_result'>
-            <img className='search_result_img' src={`http://image.tmdb.org/t/p/w500${props.poster}`} />
-            <div className='search_result_detail'>
-                <p className='content content_two'>{props.title}</p>
-                <p className='content content_three'>{props.release_year}</p>
-                <p className='content content_three'>{props.tmdb_rating} <FontAwesomeIcon icon={faStar} size='1x' /></p>
+            <div className='search_result_container'>
+                <div className='search_result_front'>
+                    <img className='search_result_img' src={`http://image.tmdb.org/t/p/w500${props.poster}`} />
+                    <div className='search_result_detail'>
+                        <div className='search_result_detail_content'>
+                            <p className='content content_two'>{props.title}</p>
+                            <p className='content content_three'>{props.release_year}</p>
+                            <p className='content content_three'>{props.tmdb_rating} <FontAwesomeIcon icon={faStar} size='1x' /></p>
+                        </div>
+                        <div className='search_result_detail_add'>
+                            <FontAwesomeIcon className='content content_two search_result_detail_icon' onClick={handleDisplayChange} icon={faPlus} size='3x' />
+                        </div>
+                    </div>
+                </div>
+                <div className='search_result_back'>
+                    HELLO
+                </div>
             </div>
         </div>
     )
