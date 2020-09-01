@@ -3,10 +3,12 @@ import { Redirect } from 'react-router-dom';
 
 export const Landing = props => {
 
-
     const [modalActive, setModalActive] = useState(false);
     const [modalType, setModalType] = useState('');
 
+    if (props.user) {
+        return <Redirect to='/profile' />
+    };
     
     const handleModalShow = e => {
         if (!modalActive) {
@@ -20,10 +22,6 @@ export const Landing = props => {
     };
 
     let modalClass = modalActive ? 'auth_active' : 'auth'
-
-    if (props.user) {
-        return <Redirect to='/profile' />
-    };
 
     return (
         <div className='page landing'>
@@ -78,6 +76,7 @@ const AuthModal = props => {
         .catch(err => {
             setMessage(`${err.toString}`);
         });
+
     };
 
     let additionalField = props.type === 'signup' ? 

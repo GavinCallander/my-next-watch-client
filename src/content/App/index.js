@@ -54,7 +54,9 @@ export const App = () => {
                     />
                 } />
                 <Route path='/profile' render={() => 
-                    <Profile />
+                    <Profile 
+                        user={user} 
+                    />
                 } />
                 <Route path='/search' render={() => 
                     <Search />

@@ -7,7 +7,12 @@ export const Search = props => {
 
     const [activeFilter, setActiveFilter] = useState('Movie');
     const [searchText, setSearchText] = useState('');
-    const [responseMovies, setResponseMovies] = useState([]);
+    const [responseShows, setResponseShows] = useState([]);
+
+    const handleFilterChange = e => {
+        setResponseShows([]);
+        setActiveFilter(e.currentTarget.getAttribute('name'));
+    };
 
     let filters = ['Movie','TV'];
 
@@ -16,7 +21,7 @@ export const Search = props => {
         if (activeFilter === filter) {
             filterClassName += ' search_bar_filter_option_active'
         };
-        return  <span className={filterClassName} key={filter} name={filter} onClick={e => setActiveFilter(e.currentTarget.getAttribute('name'))}>
+        return  <span className={filterClassName} key={filter} name={filter} onClick={handleFilterChange}>
                     <p className='content content_two'>{filter}</p>
                 </span>
     });
@@ -28,21 +33,31 @@ export const Search = props => {
             if (res.ok) {
                 res.json()
                 .then(result => {
+                    console.log(result.results)
                     let data = [];
                     result.results.forEach(result => {
                         if (result.poster_path !== null) {
                             data.push(result);
                         }
                     });
-                    setResponseMovies(data);
+                    setResponseShows(data);
                 });
             };
         });
     };
 
-    let results = responseMovies.map(movie => {
-        let release_year = movie.release_date.substring(0, 4);
-        return <SearchResult key={movie.id} poster={movie.poster_path} release_year={release_year} title={movie.title} tmdb_rating={movie.vote_average} />
+    let release_year;
+    let title;
+    let results = responseShows.map(show => {
+        if (activeFilter === 'Movie') {
+            release_year = show.release_date.substring(0, 4);
+            title = show.title;
+        }
+        else {
+            release_year = show.first_air_date.substring(0, 4);
+            title = show.name;
+        }
+        return <SearchResult key={show.id} poster={show.poster_path} release_year={release_year} title={title} tmdb_rating={show.vote_average} />
     })
 
     return (
